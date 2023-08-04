@@ -27,49 +27,31 @@ function generateBugData() {
     ]
 }
 
-// const data = [
-//     {
-//         type: 'spider',
-//         width: 3.0,
-//         height: 1.0,
-//     },
-//     {
-//         type: 'mantis',
-//         width: 1.0,
-//         height: 3.0,
-//     },
-//     {
-//         type: 'spider',
-//         width: 4.0,
-//         height: 1.0,
-//     },
-//     {
-//         type: 'mantis',
-//         width: 1.0,
-//         height: 4.0,
-//     },
-//     {
-//         type: 'spider',
-//         width: 5.0,
-//         height: 2.0,
-//     },
-//     {
-//         type: 'mantis',
-//         width: 1.0,
-//         height: 5.0,
-//     },
-//     {
-//         type: 'spider',
-//         width: 5.0,
-//         height: 3.0,
-//     },
-//     {
-//         type: 'mantis',
-//         width: 2.0,
-//         height: 8.0,
-//     },
-// ];
+function generateAccumulatedData() {
+    const data = generateBugData()
 
-const data = generateBugData()
+    const spiderDataAcc = {
+        type: 'spider',
+        width: 0,
+        height:0,
+    }
+    const mantisDataAcc = {
+        type: 'mantis',
+        width: 0,
+        height:0,
+    }
+    
+    data.forEach(item => {
+        if(item.type === 'spider') {
+            spiderDataAcc.width += item.width;
+            spiderDataAcc.height += item.height;
+        } else {
+            mantisDataAcc.width += item.width;
+            mantisDataAcc.height += item.height;
+        }
+    })
 
-module.exports = data;
+    return [spiderDataAcc, mantisDataAcc];
+}
+
+module.exports = generateAccumulatedData;

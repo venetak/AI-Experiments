@@ -4,7 +4,7 @@ const y = (a, x) => a * x;
 const modifier = 1;
 const spiderModifier = 1 * modifier;
 const mantisModifier = -1 * modifier;
-const learningRate = 0.3;
+const learningRate = 0.5;
 
 function train(a, data) {
     // use A and an x from the data to generate y
