@@ -3,9 +3,13 @@ class Neuron {
     public linksCount: number
     public linkWeights: number[] = []
 
-    constructor (linksCount: number) {
+    constructor (linksCount: number, weights?: number[]) {
         this.linksCount = linksCount
-        this.generateLinkWeights(linksCount)
+        if (weights) {
+            this.linkWeights = weights
+        } else {
+            this.generateLinkWeights(linksCount)
+        }
     }
 
     generateLinkWeights (linkedNeuronsCount) {
@@ -15,7 +19,7 @@ class Neuron {
         }
     }
 
-    activate (x: number) {
+    static activate (x: number) {
         // apply a sigmoid function
         return 1 / (1 + Math.exp(-x))
     }

@@ -5,9 +5,9 @@ class Layer {
     public neurons: Neuron[] = []
     public neuronsCount: number
 
-    constructor (neuronsCount: number) {
+    constructor (neuronsCount: number, wights) {
         for (let i = 0; i < neuronsCount; i++) {
-            this.neurons.push(new Neuron(neuronsCount))
+            this.neurons.push(new Neuron(neuronsCount, wights[i]))
         }
     }
 

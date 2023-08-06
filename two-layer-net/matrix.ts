@@ -14,16 +14,24 @@ class Matrix {
     multiply (other: Matrix) {
         const dotProduct = []
 
-        // TODO: fix, it is ugly
-        for (let j = 0; j < this.data.length; j++) {
-            for (let r = 0; r < this.data.length; r++) {
-                const row = this.data[j]
-                for (let c = 0; c < row.length; c++) {
-                    if (Number.isNaN(dotProduct[j][r])) dotProduct[j][r] = 0
-                    dotProduct[j][r] += row[c] * other.data[c][r]
+        for (let rowA = 0; rowA < this.data.length; rowA++) {
+            const row = this.data[rowA]
+            if (dotProduct[rowA] === undefined) dotProduct[rowA] = []
+            for (let colA = 0; colA < row.length; colA++) {
+                const rowB = other.data[colA]
+        
+                for(let colB = 0; colB < rowB.length; colB++) {
+                    console.log(row[colA])
+                    console.log(rowB[colB])
+        
+                    console.log(`[${rowA}${colB}]`)
+                    if (dotProduct[rowA][colB] === undefined) dotProduct[rowA][colB] = 0
+                    dotProduct[rowA][colB] += row[colA] * rowB[colB]
                 }
             }
         }
+
+        return dotProduct
     }
 }
 

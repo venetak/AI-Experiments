@@ -7,9 +7,10 @@ class Network {
     public layers: Layer[] = []
     public linkWeights: Matrix // generate weights for each neuron in each layer
 
-    constructor (layersCount: number, neuronsPerLayer: number) {
+    constructor (layersCount: number, neuronsPerLayer: number, weights) {
         while (layersCount !== 0) {
-            this.layers.push(new Layer(neuronsPerLayer))
+            console.log(weights[layersCount-1])
+            this.layers.push(new Layer(neuronsPerLayer, weights))
             layersCount--
         }
     }
