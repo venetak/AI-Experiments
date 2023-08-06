@@ -1,11 +1,7 @@
 class Matrix {
     public rows: number
     public columns: number
-    public data: number[][]
-
-    constructor (data: number[][]) {
-        this.data = data
-    }
+    public data: number[][] = []
 
     /**
      * Check if a matrix is compatible for multiplication with another matrix
@@ -30,3 +26,5 @@ class Matrix {
         }
     }
 }
+
+export default Matrix
