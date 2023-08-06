@@ -2,6 +2,11 @@ import Network from './network'
 import Neuron from './neuron'
 
 const net = new Network(3, 3)
-const weights = net.layers[0].linkWeightsMatrix
+const weightsMatrix = net.layers[0].serializeWeights()
 
-console.log(weights)
+net.input([1,2,3])
+console.log(weightsMatrix.data)
+
+console.log(net.inputLayer.serializeInput().data)
+
+

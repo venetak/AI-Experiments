@@ -27,9 +27,6 @@ class Network {
         // we can use the neuron's index interchangeably because the length
         // of the neurons and the data entries is required to be the same
         this.inputLayer.neurons.forEach((neuron, index) => neuron.input = data[index])
-        // create layer
-        // create neurons
-        // distribute data to the first layer
     }
 
 

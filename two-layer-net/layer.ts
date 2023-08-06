@@ -15,7 +15,7 @@ class Layer {
         return this.neurons.map(neuron => neuron.input)
     }
 
-    get linkWeightsMatrix () {
+    serializeWeights (): Matrix {
         const matrix = new Matrix()
         const data = matrix.data
 
@@ -26,8 +26,15 @@ class Layer {
             }
         }
 
-        return matrix.data
+        return matrix
     }
+
+    serializeInput (): Matrix {
+        const inputMatrix = new Matrix()
+        this.neurons.forEach((neuron, index) => inputMatrix.data[index] = neuron.input)
+        return inputMatrix
+    }
+
 }
  
 export default Layer
