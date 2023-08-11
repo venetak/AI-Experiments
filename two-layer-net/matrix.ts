@@ -3,6 +3,9 @@ class Matrix {
     public columns: number
     public data: number[][] = []
 
+    constructor(data?: number[][]) {
+        if (data) this.data = data
+    }
     /**
      * Check if a matrix is compatible for multiplication with another matrix
      * @param other the other matrix
@@ -11,7 +14,7 @@ class Matrix {
         return this.columns === other.rows
     }
 
-    multiply (other: Matrix) {
+    multiply (other: Matrix): Matrix {
         const dotProduct = []
 
         for (let rowA = 0; rowA < this.data.length; rowA++) {
@@ -21,17 +24,17 @@ class Matrix {
                 const rowB = other.data[colA]
         
                 for(let colB = 0; colB < rowB.length; colB++) {
-                    console.log(row[colA])
-                    console.log(rowB[colB])
+                    // console.log(row[colA])
+                    // console.log(rowB[colB])
         
-                    console.log(`[${rowA}${colB}]`)
+                    // console.log(`[${rowA}${colB}]`)
                     if (dotProduct[rowA][colB] === undefined) dotProduct[rowA][colB] = 0
                     dotProduct[rowA][colB] += row[colA] * rowB[colB]
                 }
             }
         }
 
-        return dotProduct
+        return new Matrix(dotProduct)
     }
 }
 

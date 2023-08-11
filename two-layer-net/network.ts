@@ -1,5 +1,6 @@
 import Layer from './layer'
 import Matrix from './matrix'
+import Neuron from './neuron';
 
 class Network {
     public layersCount: number
@@ -19,18 +20,30 @@ class Network {
         return this.layers[0]
     }
 
-    input (data) {
-        if (data.length !== this.inputLayer.neurons.length) {
-            return console.error('Data entries must be the same length as the neurons in the layer!')
-        }
+    passSignals() {
+        let input = this.inputLayer.serializeInput()
+        let output
+        let i = 1
 
-        // pass single data to each neuron
-        // we can use the neuron's index interchangeably because the length
-        // of the neurons and the data entries is required to be the same
-        this.inputLayer.neurons.forEach((neuron, index) => neuron.input = data[index])
+        do {
+            const weights = this.layers[i].serializeWeights()
+            input = output = this.activate(input.multiply(weights))
+            i++
+        } while(i < this.layers.length)
+
+        return output
     }
 
+    activate(output: Matrix) {
+        const data = output.data
 
+        for (let i = 0; i < data.length; i++) {
+            for (let k = 0; k < data[i].length; k++) {
+                data[i][k] = Neuron.activate(data[i][k])
+            }
+        }
+        return output
+    }
     // loop all layers
      // 1. Get all input from the nodes and construct a matrix
      // 2. Get all weights

@@ -29,6 +29,18 @@ class Layer {
         return matrix
     }
 
+    input (data) {
+        if (data.length !== this.neurons.length) {
+            return console.error('Data entries must be the same length as the neurons in the layer!')
+        }
+
+        // pass single data to each neuron
+        // we can use the neuron's index interchangeably because the length
+        // of the neurons and the data entries is required to be the same
+        this.neurons.forEach((neuron, index) => neuron.input = data[index])
+    }
+
+
     serializeInput (): Matrix {
         const inputMatrix = new Matrix()
         this.neurons.forEach((neuron, index) => inputMatrix.data[index] = neuron.input)
