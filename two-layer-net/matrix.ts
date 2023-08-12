@@ -36,6 +36,23 @@ class Matrix {
 
         return new Matrix(dotProduct)
     }
+
+    transpose (): Matrix {
+        const matrix = this.data
+        const matrixT = new Matrix()
+        const matrixTData = matrixT.data
+
+        for (let i = 0; i < matrix.length; i++) {
+            const row = matrix[i]
+            for (let k = 0; k < row.length; k++) {
+                const column = row[k]
+                if(!matrixTData[k]) matrixTData[k] = []
+                matrixTData[k][i] = row[k]
+            }
+        }
+
+        return matrixT
+    }
 }
 
 export default Matrix
