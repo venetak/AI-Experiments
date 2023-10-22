@@ -53,9 +53,9 @@ class Layer {
         return inputMatrix
     }
 
-    calculateError(previousLayerError: Matrix) {
-        const weightMatrixT = this.serializeWeights().transpose();
-        return weightMatrixT.multiply(previousLayerError);
+    calculateError(previousLayer: Layer) {
+        const weightMatrixT = previousLayer.serializeWeights().transpose();
+        return weightMatrixT.multiply(previousLayer.error);
     }
 }
  

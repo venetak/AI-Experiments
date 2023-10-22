@@ -61,7 +61,7 @@ class Network {
 
         do {
             const layer = this.layers[i]
-            layer.error = currentError = layer.calculateError(currentError)
+            layer.error = currentError = layer.calculateError(this.outputLayer)
             i--
         }
         while (i >= 0)
