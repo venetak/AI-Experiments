@@ -53,6 +53,20 @@ class Matrix {
 
         return matrixT
     }
+
+    subtract (other: Matrix): Matrix {
+        const result = new Matrix
+        const data = this.data
+
+        for (let i = 0; i < data.length; i++) {
+            result.data[i] = []
+           for (let k = 0; k < data[i].length; k++) {
+                 result.data[i][k] = data[i][k] - other.data[i][k]
+           } 
+        }
+
+        return result
+    }
 }
 
 export default Matrix

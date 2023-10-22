@@ -3,17 +3,31 @@ import Neuron from './neuron'
 import Matrix from './matrix'
 
 const weights = [
-    [0.9, 0.3, 0.4],
-    [0.2, 0.8, 0.2],
-    [0.1, 0.5, 0.6]
+    [1, 1, 1],
+    [1, 1, 1],
+    [1, 1, 1]
+]
+
+const target = new Matrix()
+target.data = [
+    [1, 1, 1],
+    [1, 1, 1],
+    [1, 1, 1]
 ]
 
 const net = new Network(3, 3, weights)
 const weightsMatrix = net.layers[0].serializeWeights()
 
-net.inputLayer.input([[0.9], [0.1], [0.8]])
+net.inputLayer.input([[0.5], [0.5], [0.5]])
 
-console.log(net.passSignals())
+const output = net.propagateForward()
+const errorOutput = target.subtract(output)
+console.log(errorOutput)
+console.log(output)
+net.outputLayer.error = errorOutput
+net.backPropagateErrors()
+
+console.log(net)
 
 // const a = new Matrix()
 // a.data = [

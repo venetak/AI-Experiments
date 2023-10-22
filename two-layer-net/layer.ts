@@ -4,8 +4,14 @@ import Matrix from './matrix'
 class Layer {
     public neurons: Neuron[] = []
     public neuronsCount: number
+    public index: number
+    // TODO: consider adding as members of the Neuron
+    public error: Matrix
+    public output: Matrix
 
-    constructor (neuronsCount: number, wights) {
+    constructor (neuronsCount: number, wights, index) {
+        this.index = index
+    
         for (let i = 0; i < neuronsCount; i++) {
             this.neurons.push(new Neuron(neuronsCount, wights[i]))
         }
@@ -47,6 +53,10 @@ class Layer {
         return inputMatrix
     }
 
+    calculateError(previousLayerError: Matrix) {
+        const weightMatrixT = this.serializeWeights().transpose();
+        return weightMatrixT.multiply(previousLayerError);
+    }
 }
  
 export default Layer

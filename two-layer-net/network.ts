@@ -3,16 +3,16 @@ import Matrix from './matrix'
 import Neuron from './neuron';
 
 class Network {
-    public layersCount: number
     public neuronsPerLayer: number
     public layers: Layer[] = []
     public linkWeights: Matrix // generate weights for each neuron in each layer
 
     constructor (layersCount: number, neuronsPerLayer: number, weights) {
-        while (layersCount !== 0) {
-            console.log(weights[layersCount-1])
-            this.layers.push(new Layer(neuronsPerLayer, weights))
-            layersCount--
+        let i = 0
+        while (i !== layersCount) {
+            // console.log(weights[layersCount-1])
+            this.layers.push(new Layer(neuronsPerLayer, weights, i))
+            i++
         }
     }
 
@@ -20,14 +20,24 @@ class Network {
         return this.layers[0]
     }
 
-    passSignals() {
+    get outputLayer (): Layer {
+        return this.layers[this.layersCount - 1]
+    }
+
+    get layersCount () {
+        return this.layers.length
+    }
+
+    propagateForward() {
         let input = this.inputLayer.serializeInput()
         let output
         let i = 1
 
         do {
-            const weights = this.layers[i].serializeWeights()
+            const layer = this.layers[i];
+            const weights = layer.serializeWeights()
             input = output = this.activate(input.multiply(weights))
+            layer.output = output
             i++
         } while(i < this.layers.length)
 
@@ -44,11 +54,18 @@ class Network {
         }
         return output
     }
-    // loop all layers
-     // 1. Get all input from the nodes and construct a matrix
-     // 2. Get all weights
-     // 3. multiply matrices
-     // 4. Generate output by running each matrix element through a sigmoid function
+
+    backPropagateErrors() {
+        let i = this.layersCount - 2
+        let currentError = this.outputLayer.error
+
+        do {
+            const layer = this.layers[i]
+            layer.error = currentError = layer.calculateError(currentError)
+            i--
+        }
+        while (i >= 0)
+    }
 }
 
 export default Network
