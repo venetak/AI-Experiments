@@ -61,10 +61,15 @@ class Layer {
         const prevLayerOutputMatrixT = previousLayer.output.transpose()
         const matrixOfOnes = new Matrix()
         matrixOfOnes.generateAndSetSameData(this.output.rows, this.output.columns, 1)
+        const learningRateMatrix = new Matrix()
+        // TODO: define learning rate
+        matrixOfOnes.generateAndSetSameData(this.output.rows, this.output.columns, 0.3)
 
         const subtractionWithOne = matrixOfOnes.subtract(this.output)
         // Error[k] * output[k] * (1 - output[k]) * output[k-1]T
-        return this.error.multiply(this.output.multiply(subtractionWithOne)).multiply(prevLayerOutputMatrixT)
+        const delta = this.error.multiply(this.output.multiply(subtractionWithOne)).multiply(prevLayerOutputMatrixT)
+        // apply learning rate
+        return learningRateMatrix.multiply(delta)
     }
 }
  
