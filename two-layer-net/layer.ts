@@ -46,16 +46,25 @@ class Layer {
         this.neurons.forEach((neuron, index) => neuron.input = data[index])
     }
 
-
     serializeInput (): Matrix {
         const inputMatrix = new Matrix()
         this.neurons.forEach((neuron, index) => inputMatrix.data[index] = neuron.input)
         return inputMatrix
     }
 
-    calculateError(previousLayer: Layer) {
+    calculateError (previousLayer: Layer) {
         const weightMatrixT = previousLayer.serializeWeights().transpose();
         return weightMatrixT.multiply(previousLayer.error);
+    }
+
+    getWeightDelta (learningRate: number, previousLayer: Layer): Matrix {
+        const prevLayerOutputMatrixT = previousLayer.output.transpose()
+        const matrixOfOnes = new Matrix()
+        matrixOfOnes.generateAndSetSameData(this.output.rows, this.output.columns, 1)
+
+        const subtractionWithOne = matrixOfOnes.subtract(this.output)
+        // Error[k] * output[k] * (1 - output[k]) * output[k-1]T
+        return this.error.multiply(this.output.multiply(subtractionWithOne)).multiply(prevLayerOutputMatrixT)
     }
 }
  

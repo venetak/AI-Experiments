@@ -67,6 +67,17 @@ class Matrix {
 
         return result
     }
+
+    generateAndSetSameData(rows: number, columns: number, value: number) {
+        this.data = []
+
+        for (let i = 0; i < rows; i++) {
+            this.data[i] = []
+            for (let k = 0; k < columns; k++) {
+                this.data[i][k] = value
+            }
+        }
+    }
 }
 
 export default Matrix
