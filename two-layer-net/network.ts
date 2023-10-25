@@ -6,8 +6,11 @@ class Network {
     public neuronsPerLayer: number
     public layers: Layer[] = []
     public linkWeights: Matrix // generate weights for each neuron in each layer
+    public learningRate
 
-    constructor (layersCount: number, neuronsPerLayer: number, weights) {
+    constructor (layersCount: number, neuronsPerLayer: number, weights, learningRate = 0.5) {
+        this.learningRate = learningRate;
+    
         let i = 0
         while (i !== layersCount) {
             // console.log(weights[layersCount-1])
@@ -65,6 +68,20 @@ class Network {
             i--
         }
         while (i >= 0)
+    }
+
+    getLinkWeightsDelta() {
+        const weightsDeltas = {}
+
+        for (let i = 1; i < this.layersCount; i++) {
+            const currentLayer = this.layers[i]
+            const previousLayer = this.layers[i - 1]
+
+            const weightIndexes = `${i-1}-${i}`
+            weightsDeltas[weightIndexes] = currentLayer.getWeightDelta(this.learningRate, previousLayer)
+        }
+
+        return weightsDeltas
     }
 }
 

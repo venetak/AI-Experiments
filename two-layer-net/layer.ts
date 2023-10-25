@@ -60,10 +60,12 @@ class Layer {
     getWeightDelta (learningRate: number, previousLayer: Layer): Matrix {
         const prevLayerOutputMatrixT = previousLayer.output.transpose()
         const matrixOfOnes = new Matrix()
-        matrixOfOnes.generateAndSetSameData(this.output.rows, this.output.columns, 1)
+        // TODO: use rows and columns!
+        matrixOfOnes.generateAndSetSameData(this.output.data.length, this.output.data.length, 1)
         const learningRateMatrix = new Matrix()
+        learningRateMatrix.generateAndSetSameData(this.output.data.length, this.output.data.length, learningRate)
         // TODO: define learning rate
-        matrixOfOnes.generateAndSetSameData(this.output.rows, this.output.columns, 0.3)
+        matrixOfOnes.generateAndSetSameData(this.output.data.length, this.output.data.length, 1)
 
         const subtractionWithOne = matrixOfOnes.subtract(this.output)
         // Error[k] * output[k] * (1 - output[k]) * output[k-1]T

@@ -19,6 +19,8 @@ const net = new Network(3, 3, weights)
 const weightsMatrix = net.layers[0].serializeWeights()
 
 net.inputLayer.input([[0.5], [0.5], [0.5]])
+net.inputLayer.output = new Matrix()
+net.inputLayer.output.generateAndSetSameData(3, 3, 0.5)
 
 const output = net.propagateForward()
 const errorOutput = target.subtract(output)
@@ -26,8 +28,9 @@ console.log(errorOutput)
 console.log(output)
 net.outputLayer.error = errorOutput
 net.backPropagateErrors()
+console.log(JSON.stringify(net.getLinkWeightsDelta()))
 
-console.log(net)
+// console.log(net)
 
 // const a = new Matrix()
 // a.data = [
