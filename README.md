@@ -1,2 +1,2 @@
 # AI-Experiments
-Learning Neural Networks
+Learning Neural Networks using Python and TypeScript
